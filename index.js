@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const config = require('config');
+
+var dbConfig = config.get('db');
 
 const helmet = require('helmet');
 const cors = require('cors');
@@ -16,7 +19,7 @@ app.use('/api/events' , events);
 app.use('/api/clusters' , clusters);
 app.use('/uploads', express.static('uploads'));
 
-mongoose.connect('mongodb://localhost/deliktum', { useNewUrlParser: true } )
+mongoose.connect(dbConfig , { useNewUrlParser: true } )
     .then( () => console.log('Conectado a la base de datos'))
     .catch( (err) => console.log(err));
 
